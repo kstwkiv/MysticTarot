@@ -1,0 +1,26 @@
+# Environment
+.env
+
+# .NET
+**/bin/
+**/obj/
+**/*.user
+**/.vs/
+**/node_modules/
+
+# Angular
+**/dist/
+**/.angular/
+
+# Docker volumes
+**/sqlserver_data/
+**/rabbitmq_data/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log

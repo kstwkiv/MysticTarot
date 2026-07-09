@@ -1,0 +1,376 @@
+@use '@angular/material' as mat;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// ── Google Fonts ─────────────────────────────────────────────────────────────
+// Loaded via index.html
+
+// ── Angular Material Theme ───────────────────────────────────────────────────
+@include mat.core();
+
+$tarot-primary: mat.define-palette(mat.$deep-purple-palette, 700, 400, 900);
+$tarot-accent: mat.define-palette(mat.$amber-palette, 600, 300, 800);
+$tarot-warn: mat.define-palette(mat.$red-palette);
+
+$tarot-theme: mat.define-dark-theme((
+  color: (
+    primary: $tarot-primary,
+    accent: $tarot-accent,
+    warn: $tarot-warn,
+  ),
+  typography: mat.define-typography-config(
+    $font-family: 'Raleway, sans-serif',
+  ),
+  density: 0,
+));
+
+@include mat.all-component-themes($tarot-theme);
+
+// ── Global Reset & Base ──────────────────────────────────────────────────────
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #0d0221;
+  color: #f0e6ff;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+// ── Typography ───────────────────────────────────────────────────────────────
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cinzel', serif;
+  color: #c9a84c;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+a {
+  color: #c9a84c;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #e8c96a;
+  }
+}
+
+// ── Star Field Background ────────────────────────────────────────────────────
+.star-field {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      radial-gradient(1px 1px at 10% 15%, rgba(240, 230, 255, 0.8) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 40%, rgba(240, 230, 255, 0.6) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 40% 10%, rgba(201, 168, 76, 0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 60%, rgba(240, 230, 255, 0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 25%, rgba(240, 230, 255, 0.8) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 80% 75%, rgba(201, 168, 76, 0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 45%, rgba(240, 230, 255, 0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 15% 80%, rgba(240, 230, 255, 0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 35% 90%, rgba(240, 230, 255, 0.6) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 60% 85%, rgba(201, 168, 76, 0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 75% 5%, rgba(240, 230, 255, 0.9) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5% 55%, rgba(240, 230, 255, 0.4) 0%, transparent 100%);
+    animation: twinkle-stars 8s ease-in-out infinite alternate;
+  }
+
+  &::after {
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(240, 230, 255, 0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 45% 70%, rgba(240, 230, 255, 0.5) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 65% 20%, rgba(201, 168, 76, 0.8) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 55%, rgba(240, 230, 255, 0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 65%, rgba(240, 230, 255, 0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 35%, rgba(240, 230, 255, 0.7) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 95% 15%, rgba(201, 168, 76, 0.5) 0%, transparent 100%);
+    animation-delay: 4s;
+    animation-duration: 10s;
+  }
+}
+
+@keyframes twinkle-stars {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+// ── Utility Classes ──────────────────────────────────────────────────────────
+.mystic-card {
+  background: linear-gradient(135deg, rgba(45, 27, 105, 0.6) 0%, rgba(26, 5, 51, 0.8) 100%);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: rgba(201, 168, 76, 0.6);
+    box-shadow: 0 0 30px rgba(201, 168, 76, 0.2);
+    transform: translateY(-2px);
+  }
+}
+
+.gold-text {
+  color: #c9a84c;
+  font-family: 'Cinzel', serif;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #c9a84c 0%, #e8c96a 50%, #a07830 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-mystic {
+  background: linear-gradient(135deg, #c9a84c 0%, #e8c96a 50%, #a07830 100%);
+  color: #0d0221;
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+
+  &:hover {
+    box-shadow: 0 0 30px rgba(201, 168, 76, 0.6);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.btn-mystic-outline {
+  background: transparent;
+  color: #c9a84c;
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 2rem;
+  border: 1px solid #c9a84c;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+
+  &:hover {
+    background: rgba(201, 168, 76, 0.1);
+    box-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+  }
+}
+
+.page-container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  color: #c9a84c;
+  text-align: center;
+  margin-bottom: 0.5rem;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+    margin: 0.75rem auto 0;
+  }
+}
+
+// ── Tarot Card Flip Animation ────────────────────────────────────────────────
+.card-flip-container {
+  perspective: 1000px;
+
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s ease;
+    transform-style: preserve-3d;
+
+    &.flipped {
+      transform: rotateY(180deg);
+    }
+  }
+
+  .card-front,
+  .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .card-back {
+    transform: rotateY(180deg);
+  }
+}
+
+// ── Scrollbar Styling ────────────────────────────────────────────────────────
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0221;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 76, 0.4);
+  border-radius: 3px;
+
+  &:hover {
+    background: rgba(201, 168, 76, 0.7);
+  }
+}
+
+// ── Angular Material Overrides ───────────────────────────────────────────────
+.mat-mdc-form-field {
+  .mdc-text-field {
+    background-color: rgba(45, 27, 105, 0.3) !important;
+    border-radius: 8px !important;
+  }
+
+  .mdc-floating-label {
+    color: #8b7aa8 !important;
+  }
+
+  .mdc-text-field--focused .mdc-floating-label {
+    color: #c9a84c !important;
+  }
+
+  .mdc-line-ripple::after {
+    border-bottom-color: #c9a84c !important;
+  }
+
+  input, textarea {
+    color: #f0e6ff !important;
+  }
+}
+
+.mat-mdc-snack-bar-container {
+  &.success-snack {
+    --mdc-snackbar-container-color: rgba(45, 27, 105, 0.95);
+    --mdc-snackbar-supporting-text-color: #c9a84c;
+    border: 1px solid rgba(201, 168, 76, 0.4);
+  }
+
+  &.error-snack {
+    --mdc-snackbar-container-color: rgba(80, 10, 30, 0.95);
+    --mdc-snackbar-supporting-text-color: #ff6b6b;
+    border: 1px solid rgba(255, 107, 107, 0.4);
+  }
+}
+
+// ── Loading Spinner ──────────────────────────────────────────────────────────
+.mystic-spinner {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(201, 168, 76, 0.2);
+  border-top-color: #c9a84c;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ── Particle Stars ───────────────────────────────────────────────────────────
+// Static stars - generated with fixed positions to avoid Sass random() deprecation
+.star-1  { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.6); border-radius:50%; top:7%;  left:23%; animation:twinkle 3s ease-in-out 1s infinite; }
+.star-2  { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.4); border-radius:50%; top:14%; left:67%; animation:twinkle 5s ease-in-out 2s infinite; }
+.star-3  { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.8); border-radius:50%; top:23%; left:45%; animation:twinkle 4s ease-in-out 0s infinite; }
+.star-4  { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.5); border-radius:50%; top:31%; left:82%; animation:twinkle 6s ease-in-out 3s infinite; }
+.star-5  { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.7); border-radius:50%; top:42%; left:11%; animation:twinkle 3s ease-in-out 1s infinite; }
+.star-6  { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.3); border-radius:50%; top:55%; left:34%; animation:twinkle 5s ease-in-out 4s infinite; }
+.star-7  { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.9); border-radius:50%; top:63%; left:77%; animation:twinkle 4s ease-in-out 2s infinite; }
+.star-8  { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.6); border-radius:50%; top:71%; left:55%; animation:twinkle 7s ease-in-out 0s infinite; }
+.star-9  { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.4); border-radius:50%; top:82%; left:28%; animation:twinkle 3s ease-in-out 3s infinite; }
+.star-10 { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.8); border-radius:50%; top:91%; left:64%; animation:twinkle 5s ease-in-out 1s infinite; }
+.star-11 { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.5); border-radius:50%; top:5%;  left:90%; animation:twinkle 6s ease-in-out 2s infinite; }
+.star-12 { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.7); border-radius:50%; top:18%; left:13%; animation:twinkle 4s ease-in-out 4s infinite; }
+.star-13 { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.3); border-radius:50%; top:27%; left:47%; animation:twinkle 3s ease-in-out 0s infinite; }
+.star-14 { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.6); border-radius:50%; top:36%; left:71%; animation:twinkle 5s ease-in-out 3s infinite; }
+.star-15 { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.9); border-radius:50%; top:48%; left:39%; animation:twinkle 7s ease-in-out 1s infinite; }
+.star-16 { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.4); border-radius:50%; top:57%; left:85%; animation:twinkle 4s ease-in-out 2s infinite; }
+.star-17 { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.5); border-radius:50%; top:66%; left:22%; animation:twinkle 3s ease-in-out 4s infinite; }
+.star-18 { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.8); border-radius:50%; top:74%; left:58%; animation:twinkle 6s ease-in-out 0s infinite; }
+.star-19 { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.6); border-radius:50%; top:83%; left:41%; animation:twinkle 5s ease-in-out 3s infinite; }
+.star-20 { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.3); border-radius:50%; top:93%; left:76%; animation:twinkle 4s ease-in-out 1s infinite; }
+.star-21 { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.7); border-radius:50%; top:3%;  left:54%; animation:twinkle 7s ease-in-out 2s infinite; }
+.star-22 { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.5); border-radius:50%; top:12%; left:89%; animation:twinkle 3s ease-in-out 4s infinite; }
+.star-23 { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.9); border-radius:50%; top:21%; left:17%; animation:twinkle 5s ease-in-out 0s infinite; }
+.star-24 { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.4); border-radius:50%; top:33%; left:63%; animation:twinkle 4s ease-in-out 3s infinite; }
+.star-25 { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.6); border-radius:50%; top:44%; left:31%; animation:twinkle 6s ease-in-out 1s infinite; }
+.star-26 { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.8); border-radius:50%; top:52%; left:78%; animation:twinkle 3s ease-in-out 2s infinite; }
+.star-27 { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.3); border-radius:50%; top:61%; left:49%; animation:twinkle 5s ease-in-out 4s infinite; }
+.star-28 { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.5); border-radius:50%; top:69%; left:25%; animation:twinkle 7s ease-in-out 0s infinite; }
+.star-29 { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.7); border-radius:50%; top:78%; left:92%; animation:twinkle 4s ease-in-out 3s infinite; }
+.star-30 { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.9); border-radius:50%; top:88%; left:36%; animation:twinkle 3s ease-in-out 1s infinite; }
+.star-31 { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.4); border-radius:50%; top:9%;  left:61%; animation:twinkle 5s ease-in-out 2s infinite; }
+.star-32 { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.6); border-radius:50%; top:19%; left:44%; animation:twinkle 6s ease-in-out 4s infinite; }
+.star-33 { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.8); border-radius:50%; top:29%; left:87%; animation:twinkle 4s ease-in-out 0s infinite; }
+.star-34 { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.3); border-radius:50%; top:38%; left:19%; animation:twinkle 3s ease-in-out 3s infinite; }
+.star-35 { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.5); border-radius:50%; top:47%; left:73%; animation:twinkle 7s ease-in-out 1s infinite; }
+.star-36 { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.7); border-radius:50%; top:59%; left:57%; animation:twinkle 5s ease-in-out 2s infinite; }
+.star-37 { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.9); border-radius:50%; top:67%; left:33%; animation:twinkle 4s ease-in-out 4s infinite; }
+.star-38 { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.4); border-radius:50%; top:76%; left:68%; animation:twinkle 3s ease-in-out 0s infinite; }
+.star-39 { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.6); border-radius:50%; top:85%; left:14%; animation:twinkle 6s ease-in-out 3s infinite; }
+.star-40 { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.8); border-radius:50%; top:95%; left:82%; animation:twinkle 5s ease-in-out 1s infinite; }
+.star-41 { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.3); border-radius:50%; top:6%;  left:37%; animation:twinkle 4s ease-in-out 2s infinite; }
+.star-42 { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.5); border-radius:50%; top:16%; left:52%; animation:twinkle 7s ease-in-out 4s infinite; }
+.star-43 { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.7); border-radius:50%; top:25%; left:96%; animation:twinkle 3s ease-in-out 0s infinite; }
+.star-44 { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.9); border-radius:50%; top:35%; left:8%;  animation:twinkle 5s ease-in-out 3s infinite; }
+.star-45 { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.4); border-radius:50%; top:46%; left:43%; animation:twinkle 6s ease-in-out 1s infinite; }
+.star-46 { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.6); border-radius:50%; top:54%; left:69%; animation:twinkle 4s ease-in-out 2s infinite; }
+.star-47 { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.8); border-radius:50%; top:64%; left:27%; animation:twinkle 3s ease-in-out 4s infinite; }
+.star-48 { position:absolute; width:2px; height:2px; background:rgba(240,230,255,0.3); border-radius:50%; top:73%; left:84%; animation:twinkle 7s ease-in-out 0s infinite; }
+.star-49 { position:absolute; width:3px; height:3px; background:rgba(240,230,255,0.5); border-radius:50%; top:81%; left:16%; animation:twinkle 5s ease-in-out 3s infinite; }
+.star-50 { position:absolute; width:1px; height:1px; background:rgba(240,230,255,0.7); border-radius:50%; top:90%; left:50%; animation:twinkle 4s ease-in-out 1s infinite; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
