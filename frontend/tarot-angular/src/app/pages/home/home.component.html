@@ -1,0 +1,203 @@
+<div class="home-page">
+  <div class="hero-bg-text" aria-hidden="true">TAROT</div>
+
+  <!-- HERO -->
+  <section class="hero reveal">
+    <div class="hero-left">
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-text">by KS · witchy.bitchy.baddie</span>
+        <span class="eyebrow-line"></span>
+      </div>
+      <h1 class="hero-title">
+        The cards<br>
+        <em class="hero-title-accent">don't lie.</em><br>
+        Do you dare?
+      </h1>
+      <p class="hero-sub">
+        Raw. Real. Unapologetic readings for the woman who already knows
+        something's up — she just needs the cards to confirm it.
+      </p>
+      <div class="hero-actions">
+        @if (authService.isAuthenticated()) {
+          <a routerLink="/ai-reading" class="btn-hex">Pull Your Cards</a>
+          <a routerLink="/book-reading" class="btn-ghost">Book KS Live</a>
+        } @else {
+          <a routerLink="/auth/register" class="btn-hex">Start Free</a>
+          <a routerLink="/auth/login" class="btn-ghost">Sign In</a>
+        }
+      </div>
+      <div class="hero-receipts">
+        <div class="receipt"><span class="receipt-n">78</span><span class="receipt-l">cards in the deck</span></div>
+        <div class="receipt-sep">⸻</div>
+        <div class="receipt"><span class="receipt-n">3</span><span class="receipt-l">spread types</span></div>
+        <div class="receipt-sep">⸻</div>
+        <div class="receipt"><span class="receipt-n">∞</span><span class="receipt-l">no-filter truth</span></div>
+      </div>
+    </div>
+
+    <div class="hero-right" aria-hidden="true">
+      <div class="serpent-ring">
+        <svg viewBox="0 0 300 300" fill="none">
+          <circle cx="150" cy="150" r="130" stroke="rgba(29,185,84,0.15)" stroke-width="1" stroke-dasharray="6 4"/>
+          <circle cx="150" cy="150" r="110" stroke="rgba(255,45,120,0.1)" stroke-width="1" stroke-dasharray="3 6"/>
+        </svg>
+      </div>
+      <div class="eye-sigil" (click)="winkEye()" [class.winking]="eyeWinking">
+        <svg class="eye-svg" viewBox="0 0 200 120" fill="none">
+          <ellipse cx="100" cy="60" rx="95" ry="50" stroke="#ff2d78" stroke-width="1.5" opacity="0.6"/>
+          <ellipse cx="100" cy="60" rx="70" ry="38" stroke="#1db954" stroke-width="1" opacity="0.4"/>
+          <circle cx="100" cy="60" r="28" fill="none" stroke="#ff2d78" stroke-width="1.5"/>
+          <circle cx="100" cy="60" r="16" fill="rgba(255,45,120,0.15)" stroke="#ff2d78" stroke-width="1"/>
+          <circle class="pupil" [attr.cx]="pupilX" [attr.cy]="pupilY" r="6" fill="#ff2d78"/>
+          <circle [attr.cx]="pupilX - 2.5" [attr.cy]="pupilY - 2.5" r="2.5" fill="rgba(255,255,255,0.7)"/>
+          <line x1="5" y1="60" x2="30" y2="60" stroke="#ff2d78" stroke-width="1" opacity="0.5"/>
+          <line x1="170" y1="60" x2="195" y2="60" stroke="#ff2d78" stroke-width="1" opacity="0.5"/>
+        </svg>
+        <div class="eye-hint">click me</div>
+      </div>
+      @for (card of previewCards; track card.label) {
+        <div class="float-card" [style]="card.style">
+          <div class="float-card-back">
+            <span class="float-card-sym">{{ card.symbol }}</span>
+            <span class="float-card-name">{{ card.label }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track">
+      @for (item of tickerItems; track item) {
+        <span class="ticker-item">{{ item }}</span>
+        <span class="ticker-sep">✦</span>
+      }
+      @for (item of tickerItems; track item) {
+        <span class="ticker-item">{{ item }}</span>
+        <span class="ticker-sep">✦</span>
+      }
+    </div>
+  </div>
+
+  <!-- DAILY CARD -->
+  <section class="daily-draw reveal">
+    <div class="daily-inner">
+      <div class="daily-left">
+        <div class="section-tag">interactive</div>
+        <h2 class="daily-title">Draw your<br><span class="pink-text">card of the day</span></h2>
+        <p class="daily-sub">One card. One message. No commitment required.</p>
+        @if (!drawnCard) {
+          <button class="btn-hex" (click)="drawCard()">Draw a Card ✦</button>
+        } @else {
+          <button class="btn-ghost" (click)="resetCard()">Draw Again</button>
+        }
+      </div>
+      <div class="daily-right">
+        <div class="card-draw-area">
+          @if (!drawnCard) {
+            <div class="card-placeholder" (click)="drawCard()">
+              <span class="placeholder-sym">?</span>
+              <span class="placeholder-text">tap to reveal</span>
+            </div>
+          } @else {
+            <div class="drawn-card" [class.flipped]="cardFlipped">
+              <div class="drawn-card-inner">
+                <div class="drawn-card-back-face">
+                  <span class="drawn-card-sym-back">✦</span>
+                </div>
+                <div class="drawn-card-front-face">
+                  <span class="drawn-sym">{{ drawnCard.symbol }}</span>
+                  <span class="drawn-name">{{ drawnCard.name }}</span>
+                  <div class="drawn-divider"></div>
+                  <p class="drawn-message">{{ drawnCard.message }}</p>
+                  <span class="drawn-keyword">{{ drawnCard.keyword }}</span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services reveal">
+    <div class="services-tag">What we do</div>
+    <div class="services-grid">
+      @for (s of services; track s.title) {
+        <a [routerLink]="s.link" class="service-tile">
+          <div class="service-num">{{ s.num }}</div>
+          <div class="service-icon">{{ s.icon }}</div>
+          <h3 class="service-title">{{ s.title }}</h3>
+          <p class="service-desc">{{ s.desc }}</p>
+          <span class="service-arrow">→</span>
+        </a>
+      }
+    </div>
+  </section>
+
+  <!-- SPREADS -->
+  <section class="spreads reveal">
+    <div class="spreads-header">
+      <div class="spreads-label">The spreads</div>
+      <h2 class="spreads-title">Pick your<br><span class="pink-text">poison</span></h2>
+    </div>
+    <div class="spreads-row">
+      @for (sp of spreads; track sp.name) {
+        <div class="spread-item">
+          <div class="spread-slots">
+            @for (p of sp.positions; track p) { <div class="spread-slot"></div> }
+          </div>
+          <div class="spread-info">
+            <span class="spread-count-badge">{{ sp.cardCount }}-card</span>
+            <h3 class="spread-name">{{ sp.name }}</h3>
+            <p class="spread-desc">{{ sp.description }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials reveal">
+    <div class="section-tag green-tag">what they say</div>
+    <div class="testimonials-track">
+      @for (t of testimonials; track t.name; let i = $index) {
+        <div class="testimonial-card" [class.active]="activeTestimonial === i">
+          <p class="testimonial-quote">"{{ t.quote }}"</p>
+          <div class="testimonial-author">
+            <span class="testimonial-avatar">{{ t.avatar }}</span>
+            <div>
+              <span class="testimonial-name">{{ t.name }}</span>
+              <span class="testimonial-detail">{{ t.detail }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="testimonial-dots">
+      @for (t of testimonials; track t.name; let i = $index) {
+        <button class="dot" [class.active]="activeTestimonial === i"
+          (click)="activeTestimonial = i" [attr.aria-label]="'View testimonial ' + (i + 1)"></button>
+      }
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto reveal">
+    <div class="manifesto-inner">
+      <p class="manifesto-text">
+        No sugarcoating. No vague vibes. Just you, the cards, and the truth you've
+        been avoiding. <em>We go there.</em>
+      </p>
+      @if (!authService.isAuthenticated()) {
+        <a routerLink="/auth/register" class="btn-hex manifesto-btn">I'm ready — let's go</a>
+      } @else {
+        <a routerLink="/ai-reading" class="btn-hex manifesto-btn">Pull your cards now</a>
+      }
+    </div>
+    <div class="manifesto-deco" aria-hidden="true">𖤐</div>
+  </section>
+</div>
