@@ -46,6 +46,16 @@ import { AuthService } from '../../../core/services/auth.service';
 
         <!-- Auth Buttons -->
         <div class="nav-auth">
+          <!-- Instagram Link -->
+          <a href="https://www.instagram.com/witchy.bitchy.baddie/" target="_blank" rel="noopener noreferrer"
+             class="instagram-link" aria-label="Follow on Instagram">
+            <svg class="instagram-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2"/>
+              <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+              <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
+            </svg>
+          </a>
+
           @if (authService.isAuthenticated()) {
             <div class="user-menu" [matMenuTriggerFor]="userMenu">
               <div class="user-avatar">
@@ -82,9 +92,9 @@ import { AuthService } from '../../../core/services/auth.service';
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(13, 2, 33, 0.9);
+      background: rgba(5, 5, 5, 0.92);
       backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
       padding: 0 1.5rem;
     }
 
@@ -104,16 +114,15 @@ import { AuthService } from '../../../core/services/auth.service';
       gap: 0.5rem;
       text-decoration: none;
       font-family: 'Cinzel', serif;
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       font-weight: 700;
-      color: #c9a84c;
+      color: #f5f0eb;
       white-space: nowrap;
       transition: all 0.3s ease;
 
-      &:hover {
-        text-shadow: 0 0 20px rgba(201, 168, 76, 0.8);
-      }
+      &:hover { color: #ff2d78; }
     }
+
 
     .logo-symbol {
       font-size: 1.1rem;
@@ -130,19 +139,18 @@ import { AuthService } from '../../../core/services/auth.service';
 
     .nav-link {
       font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #8b7aa8;
+      color: rgba(245, 240, 235, 0.5);
       text-decoration: none;
       padding: 0.5rem 0.75rem;
-      border-radius: 6px;
       transition: all 0.3s ease;
 
       &:hover, &.active {
-        color: #c9a84c;
-        background: rgba(201, 168, 76, 0.1);
+        color: #f5f0eb;
+        border-bottom: 1px solid #ff2d78;
       }
     }
 
@@ -164,57 +172,52 @@ import { AuthService } from '../../../core/services/auth.service';
       gap: 0.5rem;
       cursor: pointer;
       padding: 0.4rem 0.75rem;
-      border-radius: 8px;
-      border: 1px solid rgba(201, 168, 76, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       transition: all 0.3s ease;
-      color: #f0e6ff;
+      color: #f5f0eb;
 
-      &:hover {
-        border-color: rgba(201, 168, 76, 0.6);
-        background: rgba(201, 168, 76, 0.05);
-      }
+      &:hover { border-color: #ff2d78; background: rgba(255, 45, 120, 0.05); }
     }
 
     .user-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #c9a84c, #a07830);
+      width: 32px; height: 32px; border-radius: 0;
+      background: #ff2d78;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 700; color: #fff;
+    }
+
+    .user-name { font-family: 'Raleway', sans-serif; font-size: 0.9rem; color: #f5f0eb; }
+
+    .menu-header { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 0.25rem; }
+    .menu-email { font-size: 0.8rem; color: rgba(245,240,235,0.45); margin: 0 0 0.25rem; }
+    .menu-role {
+      font-size: 0.7rem; font-family: 'Cinzel', serif; color: #1db954;
+      background: rgba(29,185,84,0.08); padding: 0.15rem 0.5rem; border: 1px solid rgba(29,185,84,0.25);
+    }
+
+    .instagram-link {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #0d0221;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid rgba(245, 240, 235, 0.15);
+      color: rgba(245, 240, 235, 0.4);
+      transition: all 0.3s ease;
+      text-decoration: none;
+
+      &:hover {
+        color: #e1306c;
+        border-color: #e1306c;
+        background: rgba(225, 48, 108, 0.1);
+        box-shadow: 0 0 15px rgba(225, 48, 108, 0.3);
+      }
     }
 
-    .user-name {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.9rem;
-      color: #f0e6ff;
-    }
-
-    .menu-header {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
-      margin-bottom: 0.25rem;
-    }
-
-    .menu-email {
-      font-size: 0.8rem;
-      color: #8b7aa8;
-      margin: 0 0 0.25rem;
-    }
-
-    .menu-role {
-      font-size: 0.7rem;
-      font-family: 'Cinzel', serif;
-      color: #c9a84c;
-      background: rgba(201, 168, 76, 0.1);
-      padding: 0.15rem 0.5rem;
-      border-radius: 4px;
-      border: 1px solid rgba(201, 168, 76, 0.3);
+    .instagram-icon {
+      width: 18px;
+      height: 18px;
     }
   `]
 })

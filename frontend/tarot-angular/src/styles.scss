@@ -36,8 +36,8 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #0d0221;
-  color: #f0e6ff;
+  background-color: #050505;
+  color: #f5f0eb;
   font-family: 'Raleway', sans-serif;
   font-weight: 400;
   line-height: 1.6;
@@ -47,18 +47,18 @@ html, body {
 // ── Typography ───────────────────────────────────────────────────────────────
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Cinzel', serif;
-  color: #c9a84c;
+  color: #f5f0eb;
   line-height: 1.2;
   margin: 0 0 1rem;
 }
 
 a {
-  color: #c9a84c;
+  color: #f5f0eb;
   text-decoration: none;
   transition: color 0.3s ease;
 
   &:hover {
-    color: #e8c96a;
+    color: #ff2d78;
   }
 }
 
@@ -118,76 +118,81 @@ a {
 
 // ── Utility Classes ──────────────────────────────────────────────────────────
 .mystic-card {
-  background: linear-gradient(135deg, rgba(45, 27, 105, 0.6) 0%, rgba(26, 5, 51, 0.8) 100%);
-  border: 1px solid rgba(201, 168, 76, 0.3);
-  border-radius: 12px;
+  background: rgba(14, 31, 14, 0.5);
+  border: 1px solid rgba(29, 185, 84, 0.2);
+  border-radius: 0;
+  clip-path: polygon(10px 0%, calc(100% - 10px) 0%, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0% calc(100% - 10px), 0% 10px);
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
 
   &:hover {
-    border-color: rgba(201, 168, 76, 0.6);
-    box-shadow: 0 0 30px rgba(201, 168, 76, 0.2);
+    border-color: rgba(29, 185, 84, 0.5);
+    box-shadow: 0 0 30px rgba(29, 185, 84, 0.15);
     transform: translateY(-2px);
   }
 }
 
 .gold-text {
-  color: #c9a84c;
+  color: #1db954;
   font-family: 'Cinzel', serif;
 }
 
 .gold-gradient-text {
-  background: linear-gradient(135deg, #c9a84c 0%, #e8c96a 50%, #a07830 100%);
+  background: linear-gradient(135deg, #ff2d78 0%, #ff7aaa 50%, #ff2d78 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .btn-mystic {
-  background: linear-gradient(135deg, #c9a84c 0%, #e8c96a 50%, #a07830 100%);
-  color: #0d0221;
+  display: inline-block;
+  background: #ff2d78;
+  color: #fff;
   font-family: 'Cinzel', serif;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   padding: 0.75rem 2rem;
   border: none;
-  border-radius: 8px;
+  clip-path: polygon(8px 0%, calc(100% - 8px) 0%, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0% calc(100% - 8px), 0% 8px);
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
+  text-decoration: none;
 
   &:hover {
-    box-shadow: 0 0 30px rgba(201, 168, 76, 0.6);
+    box-shadow: 0 0 40px rgba(255, 45, 120, 0.5);
     transform: translateY(-2px);
+    color: #fff;
+    background: #ff5599;
   }
 
-  &:active {
-    transform: translateY(0);
-  }
+  &:active { transform: translateY(0); }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.4;
     cursor: not-allowed;
     transform: none;
   }
 }
 
 .btn-mystic-outline {
+  display: inline-block;
   background: transparent;
-  color: #c9a84c;
+  color: #f5f0eb;
   font-family: 'Cinzel', serif;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   padding: 0.75rem 2rem;
-  border: 1px solid #c9a84c;
-  border-radius: 8px;
+  border: 1px solid rgba(245, 240, 235, 0.25);
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
+  text-decoration: none;
 
   &:hover {
-    background: rgba(201, 168, 76, 0.1);
-    box-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+    border-color: #1db954;
+    color: #1db954;
+    box-shadow: 0 0 20px rgba(29, 185, 84, 0.2);
   }
 }
 
@@ -201,7 +206,7 @@ a {
 .section-title {
   font-family: 'Cinzel', serif;
   font-size: 2rem;
-  color: #c9a84c;
+  color: #f5f0eb;
   text-align: center;
   margin-bottom: 0.5rem;
 
@@ -210,7 +215,7 @@ a {
     display: block;
     width: 60px;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+    background: linear-gradient(90deg, transparent, #ff2d78, transparent);
     margin: 0.75rem auto 0;
   }
 }

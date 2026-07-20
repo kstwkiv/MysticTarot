@@ -12,594 +12,323 @@ import { inject } from '@angular/core';
   imports: [CommonModule, RouterLink, MatButtonModule, MatIconModule],
   template: `
     <div class="home-page">
-      <!-- Hero Section -->
+      <div class="hero-bg-text" aria-hidden="true">TAROT</div>
+
+      <!-- ░░ HERO ░░ -->
       <section class="hero">
-        <div class="hero-particles">
-          @for (i of particles; track i) {
-            <div class="particle" [style]="getParticleStyle(i)"></div>
+        <div class="hero-left">
+          <div class="eyebrow">
+            <span class="eyebrow-line"></span>
+            <span class="eyebrow-text">by KS · witchy.bitchy.baddie</span>
+            <span class="eyebrow-line"></span>
+          </div>
+          <h1 class="hero-title">
+            The cards<br>
+            <em class="hero-title-accent">don't lie.</em><br>
+            Do you dare?
+          </h1>
+          <p class="hero-sub">
+            Raw. Real. Unapologetic readings for the woman who already knows
+            something's up — she just needs the cards to confirm it.
+          </p>
+          <div class="hero-actions">
+            @if (authService.isAuthenticated()) {
+              <a routerLink="/ai-reading" class="btn-hex">Pull Your Cards</a>
+              <a routerLink="/book-reading" class="btn-ghost">Book KS Live</a>
+            } @else {
+              <a routerLink="/auth/register" class="btn-hex">Start Free</a>
+              <a routerLink="/auth/login" class="btn-ghost">Sign In</a>
+            }
+          </div>
+          <div class="hero-receipts">
+            <div class="receipt">
+              <span class="receipt-n">78</span>
+              <span class="receipt-l">cards in the deck</span>
+            </div>
+            <div class="receipt-sep">⸻</div>
+            <div class="receipt">
+              <span class="receipt-n">3</span>
+              <span class="receipt-l">spread types</span>
+            </div>
+            <div class="receipt-sep">⸻</div>
+            <div class="receipt">
+              <span class="receipt-n">∞</span>
+              <span class="receipt-l">no-filter truth</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right" aria-hidden="true">
+          <div class="serpent-ring">
+            <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="150" cy="150" r="130" stroke="rgba(29,185,84,0.15)" stroke-width="1" stroke-dasharray="6 4"/>
+              <circle cx="150" cy="150" r="110" stroke="rgba(255,45,120,0.1)" stroke-width="1" stroke-dasharray="3 6"/>
+            </svg>
+          </div>
+          <div class="eye-sigil">
+            <svg class="eye-svg" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="100" cy="60" rx="95" ry="50" stroke="#ff2d78" stroke-width="1.5" opacity="0.6"/>
+              <ellipse cx="100" cy="60" rx="70" ry="38" stroke="#1db954" stroke-width="1" opacity="0.4"/>
+              <circle cx="100" cy="60" r="28" fill="none" stroke="#ff2d78" stroke-width="1.5"/>
+              <circle cx="100" cy="60" r="16" fill="rgba(255,45,120,0.15)" stroke="#ff2d78" stroke-width="1"/>
+              <circle cx="100" cy="60" r="6" fill="#ff2d78"/>
+              <circle cx="93" cy="54" r="3" fill="rgba(255,255,255,0.7)"/>
+              <line x1="5" y1="60" x2="30" y2="60" stroke="#ff2d78" stroke-width="1" opacity="0.5"/>
+              <line x1="170" y1="60" x2="195" y2="60" stroke="#ff2d78" stroke-width="1" opacity="0.5"/>
+              <line x1="20" y1="35" x2="40" y2="48" stroke="#ff2d78" stroke-width="0.75" opacity="0.4"/>
+              <line x1="20" y1="85" x2="40" y2="72" stroke="#ff2d78" stroke-width="0.75" opacity="0.4"/>
+              <line x1="180" y1="35" x2="160" y2="48" stroke="#ff2d78" stroke-width="0.75" opacity="0.4"/>
+              <line x1="180" y1="85" x2="160" y2="72" stroke="#ff2d78" stroke-width="0.75" opacity="0.4"/>
+            </svg>
+          </div>
+          @for (card of previewCards; track card.label) {
+            <div class="float-card" [style]="card.style">
+              <div class="float-card-back">
+                <span class="float-card-sym">{{ card.symbol }}</span>
+                <span class="float-card-name">{{ card.label }}</span>
+              </div>
+            </div>
           }
         </div>
+      </section>
 
-        <div class="hero-content">
-          <div class="hero-badge">✦ Ancient Wisdom Meets Modern Magic ✦</div>
-          <h1 class="hero-title">
-            Unveil the Secrets<br>
-            <span class="gold-gradient-text">of Your Destiny</span>
-          </h1>
-          <p class="hero-subtitle">
-            Journey through the mystical realm of tarot. Let the cards illuminate your path,
-            reveal hidden truths, and guide you toward your highest purpose.
-          </p>
-
-          <div class="hero-cta">
-            @if (authService.isAuthenticated()) {
-              <a routerLink="/ai-reading" class="btn-mystic hero-btn">
-                ✦ Begin Your Reading
-              </a>
-              <a routerLink="/book-reading" class="btn-mystic-outline hero-btn">
-                Book a Human Reader
-              </a>
-            } @else {
-              <a routerLink="/auth/register" class="btn-mystic hero-btn">
-                ✦ Start Your Journey
-              </a>
-              <a routerLink="/auth/login" class="btn-mystic-outline hero-btn">
-                Sign In
-              </a>
-            }
-          </div>
-
-          <div class="hero-stats">
-            <div class="stat">
-              <span class="stat-number">78</span>
-              <span class="stat-label">Sacred Cards</span>
-            </div>
-            <div class="stat-divider">✦</div>
-            <div class="stat">
-              <span class="stat-number">3</span>
-              <span class="stat-label">Spread Types</span>
-            </div>
-            <div class="stat-divider">✦</div>
-            <div class="stat">
-              <span class="stat-number">∞</span>
-              <span class="stat-label">Possibilities</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-visual">
-          <div class="moon-circle">
-            <div class="moon-inner">
-              <span class="moon-symbol">☽</span>
-            </div>
-          </div>
-          <div class="floating-cards">
-            @for (card of previewCards; track card.label) {
-              <div class="preview-card" [style]="card.style">
-                <div class="preview-card-inner">
-                  <span class="preview-card-symbol">{{ card.symbol }}</span>
-                  <span class="preview-card-name">{{ card.label }}</span>
-                </div>
-              </div>
-            }
-          </div>
+      <!-- ░░ SERVICES ░░ -->
+      <section class="services">
+        <div class="services-tag">What we do</div>
+        <div class="services-grid">
+          @for (s of services; track s.title) {
+            <a [routerLink]="s.link" class="service-tile">
+              <div class="service-num">{{ s.num }}</div>
+              <div class="service-icon">{{ s.icon }}</div>
+              <h3 class="service-title">{{ s.title }}</h3>
+              <p class="service-desc">{{ s.desc }}</p>
+              <span class="service-arrow">→</span>
+            </a>
+          }
         </div>
       </section>
 
-      <!-- Features Section -->
-      <section class="features">
-        <div class="features-container">
-          <h2 class="section-title">The Mystic Arts</h2>
-          <p class="section-subtitle">Choose your path to enlightenment</p>
-
-          <div class="features-grid">
-            @for (feature of features; track feature.title) {
-              <div class="feature-card mystic-card">
-                <div class="feature-icon">{{ feature.icon }}</div>
-                <h3 class="feature-title">{{ feature.title }}</h3>
-                <p class="feature-description">{{ feature.description }}</p>
-                <a [routerLink]="feature.link" class="feature-link">
-                  {{ feature.cta }} →
-                </a>
-              </div>
-            }
-          </div>
-        </div>
-      </section>
-
-      <!-- Spreads Section -->
+      <!-- ░░ SPREADS ░░ -->
       <section class="spreads">
-        <div class="spreads-container">
-          <h2 class="section-title">Sacred Spreads</h2>
-          <p class="section-subtitle">Each spread reveals a different dimension of your journey</p>
-
-          <div class="spreads-grid">
-            @for (spread of spreads; track spread.name) {
-              <div class="spread-card">
-                <div class="spread-cards-visual">
-                  @for (pos of spread.positions; track pos) {
-                    <div class="spread-card-slot">✦</div>
-                  }
-                </div>
-                <h3 class="spread-name">{{ spread.name }}</h3>
-                <p class="spread-description">{{ spread.description }}</p>
-                <div class="spread-count">{{ spread.cardCount }} cards</div>
+        <div class="spreads-header">
+          <div class="spreads-label">The spreads</div>
+          <h2 class="spreads-title">Pick your<br><span class="pink-text">poison</span></h2>
+        </div>
+        <div class="spreads-row">
+          @for (sp of spreads; track sp.name) {
+            <div class="spread-item">
+              <div class="spread-slots">
+                @for (p of sp.positions; track p) {
+                  <div class="spread-slot"></div>
+                }
               </div>
-            }
-          </div>
+              <div class="spread-info">
+                <span class="spread-count-badge">{{ sp.cardCount }}-card</span>
+                <h3 class="spread-name">{{ sp.name }}</h3>
+                <p class="spread-desc">{{ sp.description }}</p>
+              </div>
+            </div>
+          }
         </div>
       </section>
 
-      <!-- CTA Section -->
-      <section class="cta-section">
-        <div class="cta-container">
-          <div class="cta-glow"></div>
-          <h2 class="cta-title">The Stars Are Aligned</h2>
-          <p class="cta-text">
-            The universe has been waiting to speak to you. Your reading awaits.
+      <!-- ░░ MANIFESTO ░░ -->
+      <section class="manifesto">
+        <div class="manifesto-inner">
+          <p class="manifesto-text">
+            No sugarcoating. No vague vibes. Just you, the cards, and the truth you've
+            been avoiding. <em>We go there.</em>
           </p>
           @if (!authService.isAuthenticated()) {
-            <a routerLink="/auth/register" class="btn-mystic cta-btn">
-              Begin Your Journey ✦
-            </a>
+            <a routerLink="/auth/register" class="btn-hex manifesto-btn">I'm ready — let's go</a>
           } @else {
-            <a routerLink="/ai-reading" class="btn-mystic cta-btn">
-              Draw Your Cards ✦
-            </a>
+            <a routerLink="/ai-reading" class="btn-hex manifesto-btn">Pull your cards now</a>
           }
         </div>
+        <div class="manifesto-deco" aria-hidden="true">𖤐</div>
       </section>
+
     </div>
   `,
   styles: [`
-    .home-page {
-      min-height: 100vh;
+    .home-page { min-height: 100vh; background: #050505; color: #f5f0eb; }
+
+    .hero-bg-text {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-family: 'Cinzel', serif; font-size: clamp(8rem, 20vw, 22rem); font-weight: 900;
+      color: transparent; -webkit-text-stroke: 1px rgba(255, 45, 120, 0.06);
+      letter-spacing: 0.05em; pointer-events: none; user-select: none; white-space: nowrap; z-index: 0;
     }
 
-    /* ── Hero ─────────────────────────────────────────────────────────────── */
     .hero {
-      position: relative;
-      min-height: calc(100vh - 70px);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 4rem;
-      padding: 4rem 6rem;
-      overflow: hidden;
-
-      @media (max-width: 900px) {
-        grid-template-columns: 1fr;
-        padding: 3rem 2rem;
-        text-align: center;
-      }
+      position: relative; z-index: 1; min-height: calc(100vh - 70px);
+      display: grid; grid-template-columns: 55% 45%; align-items: center;
+      padding: 5rem 4rem 5rem 6rem; overflow: hidden; gap: 2rem;
+      @media (max-width: 900px) { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
     }
 
-    .hero-particles {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(201, 168, 76, 0.6);
-      animation: float-particle linear infinite;
-    }
-
-    @keyframes float-particle {
-      0% { transform: translateY(100vh) scale(0); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { transform: translateY(-100px) scale(1); opacity: 0; }
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      color: #c9a84c;
-      background: rgba(201, 168, 76, 0.1);
-      border: 1px solid rgba(201, 168, 76, 0.3);
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      margin-bottom: 1.5rem;
+    .eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+    .eyebrow-line { flex: 0 0 40px; height: 1px; background: #ff2d78; }
+    .eyebrow-text {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: #ff2d78; font-family: 'Raleway', sans-serif; font-weight: 700;
     }
 
     .hero-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 900;
-      color: #f0e6ff;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
+      font-family: 'Cinzel', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 900;
+      color: #f5f0eb; line-height: 1.05; margin-bottom: 1.5rem; letter-spacing: -0.01em;
+    }
+    .hero-title-accent { font-style: italic; color: #1db954; -webkit-text-stroke: 1px #1db954; }
+    .hero-sub {
+      font-size: 1.05rem; color: rgba(245,240,235,0.55); line-height: 1.85;
+      max-width: 460px; margin-bottom: 2.5rem; font-weight: 300;
     }
 
-    .hero-subtitle {
-      font-size: 1.1rem;
-      color: #8b7aa8;
-      line-height: 1.8;
-      margin-bottom: 2.5rem;
-      max-width: 500px;
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+
+    .btn-hex {
+      display: inline-block; background: #ff2d78; color: #fff;
+      font-family: 'Cinzel', serif; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; padding: 0.9rem 2.2rem; border: none;
+      clip-path: polygon(8px 0%,calc(100% - 8px) 0%,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0% calc(100% - 8px),0% 8px);
+      cursor: pointer; text-decoration: none; transition: all 0.3s ease;
+      &:hover { background: #ff5599; box-shadow: 0 0 40px rgba(255,45,120,0.5); transform: translateY(-2px); color: #fff; }
     }
 
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 3rem;
+    .btn-ghost {
+      display: inline-block; background: transparent; color: #f5f0eb;
+      font-family: 'Cinzel', serif; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; padding: 0.9rem 2.2rem;
+      border: 1px solid rgba(245,240,235,0.25); cursor: pointer; text-decoration: none; transition: all 0.3s ease;
+      &:hover { border-color: #1db954; color: #1db954; box-shadow: 0 0 20px rgba(29,185,84,0.2); }
     }
 
-    .hero-btn {
-      font-size: 0.9rem;
+    .hero-receipts { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .receipt { display: flex; flex-direction: column; }
+    .receipt-n { font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 900; color: #f5f0eb; line-height: 1; }
+    .receipt-l { font-size: 0.68rem; color: rgba(245,240,235,0.4); letter-spacing: 0.1em; text-transform: uppercase; }
+    .receipt-sep { color: rgba(255,45,120,0.4); font-size: 0.7rem; }
+
+    .hero-right {
+      position: relative; height: 520px; display: flex; align-items: center; justify-content: center;
+      @media (max-width: 900px) { display: none; }
     }
 
-    .hero-stats {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
+    .eye-sigil { position: relative; z-index: 2; }
+    .eye-svg { width: 320px; height: auto; filter: drop-shadow(0 0 30px rgba(255,45,120,0.4)); animation: pulse-eye 4s ease-in-out infinite; }
+    @keyframes pulse-eye {
+      0%, 100% { filter: drop-shadow(0 0 20px rgba(255,45,120,0.3)); }
+      50%       { filter: drop-shadow(0 0 50px rgba(255,45,120,0.7)); }
     }
 
-    .stat {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .float-card {
+      position: absolute; width: 75px; height: 120px;
+      clip-path: polygon(6px 0%,calc(100% - 6px) 0%,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0% calc(100% - 6px),0% 6px);
+      background: linear-gradient(160deg,#0e1f0e 0%,#050505 100%); border: 1px solid rgba(29,185,84,0.35);
+      animation: card-float 7s ease-in-out infinite;
+    }
+    .float-card-back { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.5rem; }
+    .float-card-sym { font-size: 1.6rem; }
+    .float-card-name { font-family: 'Cinzel', serif; font-size: 0.45rem; color: #1db954; text-align: center; letter-spacing: 0.05em; text-transform: uppercase; }
+    @keyframes card-float {
+      0%, 100% { transform: translateY(0) rotate(var(--r,0deg)); }
+      50%       { transform: translateY(-18px) rotate(var(--r,0deg)); }
     }
 
-    .stat-number {
-      font-family: 'Cinzel', serif;
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: #c9a84c;
+    .serpent-ring {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      animation: slow-spin 40s linear infinite; z-index: 0;
     }
+    .serpent-ring svg { width: 300px; height: 300px; }
+    @keyframes slow-spin { to { transform: rotate(360deg); } }
 
-    .stat-label {
-      font-size: 0.75rem;
-      color: #8b7aa8;
-      letter-spacing: 0.05em;
+    /* ── SERVICES ── */
+    .services { padding: 6rem 6rem; position: relative; z-index: 1; @media (max-width: 900px) { padding: 4rem 1.5rem; } }
+    .services-tag {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: #1db954; font-weight: 700;
+      margin-bottom: 3rem; display: flex; align-items: center; gap: 0.75rem;
+      &::before { content: ''; display: inline-block; width: 30px; height: 1px; background: #1db954; }
     }
-
-    .stat-divider {
-      color: rgba(201, 168, 76, 0.4);
-      font-size: 0.75rem;
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border: 1px solid rgba(255,255,255,0.07);
+      @media (max-width: 700px) { grid-template-columns: 1fr; }
     }
-
-    /* ── Hero Visual ──────────────────────────────────────────────────────── */
-    .hero-visual {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 500px;
-
-      @media (max-width: 900px) {
-        display: none;
-      }
+    .service-tile {
+      padding: 2.5rem 2rem; background: #050505; border-right: 1px solid rgba(255,255,255,0.07);
+      display: flex; flex-direction: column; gap: 0.75rem; text-decoration: none; transition: background 0.3s ease; position: relative; overflow: hidden;
+      &::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: #ff2d78; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+      &:hover { background: rgba(255,45,120,0.04); &::before { transform: scaleX(1); } .service-arrow { transform: translateX(6px); color: #ff2d78; } }
+      &:last-child { border-right: none; }
     }
+    .service-num { font-family: 'Cinzel', serif; font-size: 0.65rem; color: rgba(245,240,235,0.2); letter-spacing: 0.15em; }
+    .service-icon { font-size: 1.75rem; }
+    .service-title { font-family: 'Cinzel', serif; font-size: 1.1rem; color: #f5f0eb; font-weight: 700; margin: 0; }
+    .service-desc { font-size: 0.875rem; color: rgba(245,240,235,0.45); line-height: 1.75; margin: 0; flex: 1; }
+    .service-arrow { font-size: 1rem; color: rgba(245,240,235,0.3); transition: all 0.3s ease; align-self: flex-end; }
 
-    .moon-circle {
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, rgba(201, 168, 76, 0.15), rgba(45, 27, 105, 0.4));
-      border: 1px solid rgba(201, 168, 76, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: float 6s ease-in-out infinite;
-      box-shadow: 0 0 60px rgba(201, 168, 76, 0.15), inset 0 0 60px rgba(201, 168, 76, 0.05);
-    }
-
-    .moon-inner {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      border: 1px solid rgba(201, 168, 76, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .moon-symbol {
-      font-size: 5rem;
-      color: #c9a84c;
-      text-shadow: 0 0 30px rgba(201, 168, 76, 0.8);
-    }
-
-    .floating-cards {
-      position: absolute;
-      inset: 0;
-    }
-
-    .preview-card {
-      position: absolute;
-      width: 80px;
-      height: 130px;
-      border-radius: 8px;
-      background: linear-gradient(180deg, #2d1b69 0%, #1a0533 100%);
-      border: 1px solid rgba(201, 168, 76, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: float 6s ease-in-out infinite;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .preview-card-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .preview-card-symbol {
-      font-size: 1.5rem;
-    }
-
-    .preview-card-name {
-      font-family: 'Cinzel', serif;
-      font-size: 0.5rem;
-      color: #c9a84c;
-      text-align: center;
-      letter-spacing: 0.05em;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
-    }
-
-    /* ── Features ─────────────────────────────────────────────────────────── */
-    .features {
-      padding: 6rem 2rem;
-      background: rgba(26, 5, 51, 0.3);
-    }
-
-    .features-container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-subtitle {
-      text-align: center;
-      color: #8b7aa8;
-      margin-bottom: 3rem;
-      font-size: 1rem;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .feature-card {
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .feature-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .feature-title {
-      font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      color: #c9a84c;
-      margin-bottom: 0.75rem;
-    }
-
-    .feature-description {
-      color: #8b7aa8;
-      font-size: 0.9rem;
-      line-height: 1.7;
-      margin-bottom: 1.25rem;
-    }
-
-    .feature-link {
-      color: #c9a84c;
-      font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.05em;
-      text-decoration: none;
-      transition: all 0.3s ease;
-
-      &:hover {
-        text-shadow: 0 0 10px rgba(201, 168, 76, 0.8);
-      }
-    }
-
-    /* ── Spreads ──────────────────────────────────────────────────────────── */
+    /* ── SPREADS ── */
     .spreads {
-      padding: 6rem 2rem;
+      padding: 5rem 6rem; display: grid; grid-template-columns: 280px 1fr; gap: 4rem;
+      border-top: 1px solid rgba(255,255,255,0.07); position: relative; z-index: 1;
+      @media (max-width: 900px) { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2rem; }
     }
-
-    .spreads-container {
-      max-width: 1100px;
-      margin: 0 auto;
+    .spreads-label { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: #ff2d78; font-weight: 700; margin-bottom: 1rem; }
+    .spreads-title { font-family: 'Cinzel', serif; font-size: 2.5rem; font-weight: 900; color: #f5f0eb; line-height: 1.15; margin: 0; }
+    .pink-text { color: #ff2d78; }
+    .spreads-row { display: flex; flex-direction: column; }
+    .spread-item {
+      display: grid; grid-template-columns: 140px 1fr; gap: 2rem; align-items: center;
+      padding: 2rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); transition: background 0.2s ease;
+      &:hover { background: rgba(255,45,120,0.03); }
+      &:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+      @media (max-width: 600px) { grid-template-columns: 1fr; gap: 1rem; }
     }
-
-    .spreads-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
+    .spread-slots { display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; }
+    .spread-slot {
+      width: 22px; height: 36px; background: rgba(29,185,84,0.08); border: 1px solid rgba(29,185,84,0.3);
+      clip-path: polygon(4px 0%,calc(100% - 4px) 0%,100% 4px,100% calc(100% - 4px),calc(100% - 4px) 100%,4px 100%,0% calc(100% - 4px),0% 4px);
     }
+    .spread-info { display: flex; flex-direction: column; gap: 0.5rem; }
+    .spread-count-badge { font-size: 0.65rem; font-family: 'Cinzel', serif; letter-spacing: 0.15em; color: #1db954; text-transform: uppercase; }
+    .spread-name { font-family: 'Cinzel', serif; font-size: 1.15rem; color: #f5f0eb; font-weight: 700; margin: 0; }
+    .spread-desc { font-size: 0.875rem; color: rgba(245,240,235,0.45); line-height: 1.7; margin: 0; }
 
-    .spread-card {
-      background: linear-gradient(135deg, rgba(45, 27, 105, 0.4) 0%, rgba(26, 5, 51, 0.6) 100%);
-      border: 1px solid rgba(201, 168, 76, 0.2);
-      border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
-      transition: all 0.3s ease;
-
-      &:hover {
-        border-color: rgba(201, 168, 76, 0.5);
-        transform: translateY(-4px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      }
+    /* ── MANIFESTO ── */
+    .manifesto {
+      position: relative; z-index: 1; padding: 7rem 6rem; background: #0a0a0a;
+      border-top: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center;
+      justify-content: space-between; gap: 3rem; overflow: hidden;
+      @media (max-width: 900px) { flex-direction: column; padding: 4rem 1.5rem; text-align: center; }
     }
-
-    .spread-cards-visual {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
+    .manifesto-inner { max-width: 680px; display: flex; flex-direction: column; gap: 2.5rem; }
+    .manifesto-text {
+      font-family: 'Cinzel', serif; font-size: clamp(1.25rem, 2.5vw, 2rem); color: #f5f0eb;
+      line-height: 1.6; font-weight: 400; margin: 0;
+      em { font-style: italic; color: #ff2d78; }
     }
-
-    .spread-card-slot {
-      width: 30px;
-      height: 50px;
-      border: 1px solid rgba(201, 168, 76, 0.4);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.6rem;
-      color: rgba(201, 168, 76, 0.6);
-      background: rgba(45, 27, 105, 0.3);
-    }
-
-    .spread-name {
-      font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      color: #c9a84c;
-      margin-bottom: 0.75rem;
-    }
-
-    .spread-description {
-      color: #8b7aa8;
-      font-size: 0.85rem;
-      line-height: 1.6;
-      margin-bottom: 1rem;
-    }
-
-    .spread-count {
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem;
-      color: rgba(201, 168, 76, 0.6);
-      letter-spacing: 0.1em;
-    }
-
-    /* ── CTA ──────────────────────────────────────────────────────────────── */
-    .cta-section {
-      padding: 6rem 2rem;
-      background: rgba(26, 5, 51, 0.5);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-container {
-      position: relative;
-      z-index: 1;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .cta-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 400px;
-      height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201, 168, 76, 0.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .cta-title {
-      font-family: 'Cinzel', serif;
-      font-size: 2.5rem;
-      color: #c9a84c;
-      margin-bottom: 1rem;
-    }
-
-    .cta-text {
-      color: #8b7aa8;
-      font-size: 1.1rem;
-      margin-bottom: 2.5rem;
-      line-height: 1.7;
-    }
-
-    .cta-btn {
-      font-size: 1rem;
-      padding: 1rem 2.5rem;
-    }
+    .manifesto-btn { align-self: flex-start; }
+    .manifesto-deco { font-size: clamp(5rem,12vw,10rem); color: rgba(255,45,120,0.07); font-family: serif; user-select: none; pointer-events: none; flex-shrink: 0; }
   `]
 })
 export class HomeComponent {
   authService = inject(AuthService);
 
-  particles = Array.from({ length: 20 }, (_, i) => i);
-
   previewCards = [
-    { label: 'The Moon', symbol: '☽', style: 'top: 10%; left: 5%; animation-delay: 0s; animation-duration: 7s;' },
-    { label: 'The Star', symbol: '✦', style: 'top: 60%; left: 0%; animation-delay: 1s; animation-duration: 8s;' },
-    { label: 'The Sun', symbol: '☀', style: 'top: 15%; right: 5%; animation-delay: 2s; animation-duration: 6s;' },
-    { label: 'The World', symbol: '🌍', style: 'bottom: 15%; right: 0%; animation-delay: 0.5s; animation-duration: 9s;' },
+    { label: 'The Moon',  symbol: '☽', style: '--r:-8deg;top:8%;left:2%;animation-delay:0s;animation-duration:7s;' },
+    { label: 'The Tower', symbol: '⚡', style: '--r:6deg;top:55%;left:3%;animation-delay:1.5s;animation-duration:8s;' },
+    { label: 'The Star',  symbol: '✦', style: '--r:-5deg;top:5%;right:4%;animation-delay:0.8s;animation-duration:6.5s;' },
+    { label: 'The Devil', symbol: '🜏', style: '--r:10deg;bottom:8%;right:2%;animation-delay:2s;animation-duration:9s;' },
   ];
 
-  features = [
-    {
-      icon: '🤖',
-      title: 'AI-Powered Readings',
-      description: 'Experience the fusion of ancient tarot wisdom and modern AI. Our mystical interpreter weaves your cards into a deeply personal narrative.',
-      link: '/ai-reading',
-      cta: 'Get an AI Reading'
-    },
-    {
-      icon: '🔮',
-      title: 'Human Readers',
-      description: 'Connect with our gifted human tarot readers for a deeply personal, intuitive reading experience that goes beyond algorithms.',
-      link: '/book-reading',
-      cta: 'Book a Reader'
-    },
-    {
-      icon: '📖',
-      title: 'Reading History',
-      description: 'Your journey is sacred. Every reading is preserved in your personal archive, allowing you to track patterns and growth over time.',
-      link: '/dashboard',
-      cta: 'View History'
-    }
+  services = [
+    { num: '01', icon: '🤖', title: 'AI Reading',   desc: 'Instant, no-filter AI interpretation. Ask anything. The algorithm doesn\'t sugarcoat.', link: '/ai-reading' },
+    { num: '02', icon: '🔮', title: 'Book KS Live',  desc: 'One-on-one with KS herself. Real talk, real cards, real answers.',                    link: '/book-reading' },
+    { num: '03', icon: '📜', title: 'Your Archive',  desc: 'Every reading saved. Track the patterns your conscious mind tries to ignore.',          link: '/dashboard' },
   ];
 
   spreads = [
-    {
-      name: 'Single Card',
-      description: 'A focused message from the universe. Perfect for daily guidance or a quick answer to a burning question.',
-      cardCount: 1,
-      positions: [1]
-    },
-    {
-      name: 'Three Card',
-      description: 'Explore the flow of Past, Present, and Future. Understand how your history shapes your current moment and future possibilities.',
-      cardCount: 3,
-      positions: [1, 2, 3]
-    },
-    {
-      name: 'Celtic Cross',
-      description: 'The most comprehensive spread in tarot. Ten cards reveal every dimension of your situation — from hidden influences to the ultimate outcome.',
-      cardCount: 10,
-      positions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    }
+    { name: 'One Card',               description: 'One card. One truth. Good for when you already know the answer but need someone to say it.',                                                                          cardCount: 1,  positions: [1] },
+    { name: 'Past · Present · Future', description: 'Three cards that cut through the noise and show you exactly where things went, where they are, and where they\'re headed.',                                           cardCount: 3,  positions: [1,2,3] },
+    { name: 'Celtic Cross',            description: 'Ten cards. Full picture. For when the situation is complicated and you need the whole truth, not the highlights.',                                                    cardCount: 10, positions: [1,2,3,4,5,6,7,8,9,10] },
   ];
-
-  getParticleStyle(i: number): string {
-    const size = Math.random() * 4 + 1;
-    const left = Math.random() * 100;
-    const delay = Math.random() * 10;
-    const duration = Math.random() * 15 + 10;
-    return `width: ${size}px; height: ${size}px; left: ${left}%; animation-delay: ${delay}s; animation-duration: ${duration}s;`;
-  }
 }
