@@ -1,7 +1,4 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist/tarot-angular/browser",
-  "framework": "angular",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
